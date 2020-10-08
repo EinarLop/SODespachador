@@ -21,30 +21,63 @@ import math
 
 
 
-procesos=[80,1000,100,1500, 450]
+procesos=[80,1000,200,500]
 
 
-inp = {"tcc":10, "tb":10,"tvc":10 ,"quantum":100 }
 
 
+
+tcc = 10
+tb=10
+
+quantum=100
+mp= 2
+mps=[]
+ 
+ ##arreglo de microprocesadores
+for i in range(mp):
+      mps.append([[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]])
+      
+##calcula el tiempo por vencimiento de cuantum
 def tvcM(proceso):
-      value = (math.ceil(proceso / inp["quantum"]) -1 ) * inp["tvc"]
+      value = (math.ceil(proceso / quantum) -1 ) * tcc
       return value
 
+##calcula a que micro entrar
+def chooseMicro(mps):
+      minVal = []
+      for m in mps:
+            val =m[len(m)-1][6] 
+            minVal.append(val)
+      
+      #return( minVal.index(min(minVal)))
+      return( [minVal.index(min(minVal)), min(minVal)])
 
-x=0
-y=0
+
+##se usa como tiempo inicial
+#x=0 
+##se usa como tiempo por cambio de contexto
+#y=0
+
 for p in procesos:
       te= p
-      tcc=y
+      z=chooseMicro(mps)
+      if z[1] != 0:
+            tcc=10
+      else:
+            tcc=0
       tvc= tvcM(p)
-      tb= inp["tb"]
+      tb= tb
       tt= te+tcc+ tvc+ tb
-      ti = x
+      ti = z[1] 
       tf = tt + ti
-      print ("tcc:", tcc, "te:" , te   , "tvc:" , tvc , "tb:", tb, "tt:", tt, "ti:", ti, "tf:" ,tf)
-      x = tf    
-      y=10
+      mps[z[0]].append([te, tcc,tvc,tb,tt,ti,tf])
+      #print ("Procesos del micro :",mps)
+      #x = tf    
+      #y=10
+for m in mps:
+      
+      print ("Procesos del micro :",m)
 
 
 
