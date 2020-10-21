@@ -35,7 +35,8 @@ class Micro :
         tf = tt + initalTime
         self.finalTime = tf
         self.processList.append([self.id,process.id, executionTime, currentTcc,tvc,tb,tt,initalTime,tf])
-        print(self.processList)
+        for p in self.processList:
+            print(p)
         #print ("Procesos del micro :",mps)
         #x = tf    
         #y=10
