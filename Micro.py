@@ -1,4 +1,5 @@
 import math
+from pprint import pprint
 class Micro :
     firstProcess = True
     processList = []
@@ -18,9 +19,11 @@ class Micro :
   
   
   
-    def fillTable(self, process):    
+    def fillTable(self, process): 
         executionTime= process.executionTime
-        if(self.firstProcess):
+        if(self.finalTime < process.startTime):
+            self.processList.append([self.id, "WAITING", 0, 0,0,0,0,self.finalTime,process.startTime])
+        if(self.firstProcess or self.finalTime < process.startTime):
             currentTcc=0
             self.firstProcess = False
         else:
@@ -34,9 +37,9 @@ class Micro :
             initalTime = process.startTime
         tf = tt + initalTime
         self.finalTime = tf
-        self.processList.append([self.id,process.id, executionTime, currentTcc,tvc,tb,tt,initalTime,tf])
-        for p in self.processList:
-            print(p)
-        #print ("Procesos del micro :",mps)
-        #x = tf    
-        #y=10
+        
+        self.processList.append([self.id, process.id, executionTime, currentTcc,tvc,tb,tt,initalTime,tf])
+        
+    
+    
+            
