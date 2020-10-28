@@ -137,7 +137,7 @@ def retrieve_input():
     quantum = int(quantumBox.get("1.0", "end-1c"))
     mp = int(mpBox.get("1.0", "end-1c"))
 
-    if mp != 0:
+    if mp > 0 and tcc >= 0 and tb >= 0 and quantum > 0:
         for a in range(mp):
             microProcessors.append(Micro((a + 1), tb, quantum, tcc))
         processes = []
